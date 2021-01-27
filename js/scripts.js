@@ -31,16 +31,18 @@ let newGame = new Game();
 let turnCount = 0;
 
 Game.prototype.dieRoll = function () { // Roll Button
+  $("#turnOver").hide();
+  $("#turnOverOne").hide();
+  document.getElementById("roundCount").innerHTML = newGame.round;
   let rolled = Math.floor(Math.random() * 6) + 1;
-  console.log(rolled);
-  //document.getElementById("demo").innerHTML = "rolled"; 
+  document.getElementById("currentRoll").innerHTML = rolled; 
   if (rolled >= 2) {
     turnCount += rolled;
-  console.log(turnCount)
+    document.getElementById("turnTotal").innerHTML = turnCount;
   } else {
     turnCount = 0;
-    newGame.round ++;
-    //document.getElementById("demo").innerHTML = "Turn Over";
+    newGame.round++;
+    $("#turnOverOne").show();
   }
 }
 
@@ -52,7 +54,7 @@ Game.prototype.endTurn = function () { // Hold Button
       // end game
     }
     turnCount = 0;
-    //update scoreboard with Game.player scores
+    document.getElementById("nameOneScore").innerHTML = newGame.playerOne; 
   } else {
     this.playerTwo += turnCount;
     if (this.playerTwo >= 100) {
@@ -60,8 +62,23 @@ Game.prototype.endTurn = function () { // Hold Button
       // end game
     }
     turnCount = 0;
-    //update scoreboard with Game.player scores
+    document.getElementById("nameTwoScore").innerHTML = newGame.playerTwo; 
   }
-  newGame.round ++;
-  //document.getElementById("demo").innerHTML = "Turn Over";
+  newGame.round++;
+
+  $("#turnOver").show();
 }
+
+// UI logic
+$(document).ready(function() {
+  $("#nameForm").submit(function(event) {
+    event.preventDefault();
+    let nameOne = $("#playerOneName").val();
+    let nameTwo = $("#playerTwoName").val();
+    $("#nameOne").text(nameOne + ": ");
+    $("#nameTwo").text(nameTwo + ": ");
+    
+  })
+})
+
+
