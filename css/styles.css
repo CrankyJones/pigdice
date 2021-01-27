@@ -4,9 +4,15 @@
 }
 
 #turnOver {
+  float: right;
   display: none;
 }
 
 #turnOverOne  {
+  float: right;
+  display: none;
+}
+
+#playAgain  {
   display: none;
 }

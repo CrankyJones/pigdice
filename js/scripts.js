@@ -24,6 +24,8 @@ function Game() {    // New Game Button
   this.round = 1;
   this.playerOne = 0;
   this.playerTwo = 0;
+  this.nameOne = ""
+  this.nameTwo = ""
 }
 
 // On Start New Game
@@ -32,7 +34,7 @@ let turnCount = 0;
 
 Game.prototype.dieRoll = function () { // Roll Button
   $("#turnOver").hide();
-  $("#turnOverOne").hide();
+  $("#turnOverOne").hide();  
   document.getElementById("roundCount").innerHTML = newGame.round;
   let rolled = Math.floor(Math.random() * 6) + 1;
   document.getElementById("currentRoll").innerHTML = rolled; 
@@ -50,16 +52,20 @@ Game.prototype.endTurn = function () { // Hold Button
   if (this.round % 2 === 1) {
     this.playerOne += turnCount;
     if (this.playerOne >= 100) {
-      // some win game screen
-      // end game
+      document.getElementById("winScreen").innerHTML = newGame.nameOne + " wins the game!";
+      $("#winScreen").show();
+      $("#playAgain").show();
+      return;
     }
     turnCount = 0;
     document.getElementById("nameOneScore").innerHTML = newGame.playerOne; 
   } else {
     this.playerTwo += turnCount;
     if (this.playerTwo >= 100) {
-      // some win game screen
-      // end game
+      document.getElementById("winScreen").innerHTML = newGame.nameTwo + " wins the game!";
+      $("#winScreen").show();
+      $("#playAgain").show();
+      return;
     }
     turnCount = 0;
     document.getElementById("nameTwoScore").innerHTML = newGame.playerTwo; 
@@ -69,15 +75,21 @@ Game.prototype.endTurn = function () { // Hold Button
   $("#turnOver").show();
 }
 
+Game.prototype.playAgain = function ()  {
+  location.reload();                  //.reload();
+}
+
 // UI logic
 $(document).ready(function() {
   $("#nameForm").submit(function(event) {
-    event.preventDefault();
-    let nameOne = $("#playerOneName").val();
-    let nameTwo = $("#playerTwoName").val();
-    $("#nameOne").text(nameOne + ": ");
-    $("#nameTwo").text(nameTwo + ": ");
-    
+    event.preventDefault();  
+    newGame.nameOne = $("#playerOneName").val();
+    newGame.nameTwo = $("#playerTwoName").val();
+    $("#nameOne").text(newGame.nameOne + ": ");
+    $("#nameTwo").text(newGame.nameTwo + ": ");
+    $("#start").hide();
+    $("#winScreen").hide();
+    $("playAgain").hide();
   })
 })
 

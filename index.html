@@ -16,7 +16,8 @@
       <input id="playerOneName" class="form-control" type="text">
       <label for="playerTwo">Player Two:</label>
       <input id="playerTwoName" class="form-control" type="text">
-      <button type="submit" class="btn btn-primary">Start Game!</button>
+      <button id="start" type="submit" class="btn btn-primary">Start Game!</button>
+      <button id="playAgain" class="btn btn-warning" onclick="newGame.playAgain()">Play Again!</button>  
     </form>
     <h3 class="headings">Round: <span id="roundCount">0</span></h3>
     <h3 class="headings">Player One: <span id="nameOne"></span><span id="nameOneScore"> 0</span></h3>
@@ -30,7 +31,8 @@
 
     <div>
       <h1 id="turnOver"> TURN OVER, SWITCH PLAYERS </h1>
-      <h1 id="turnOverOne">YOU ROLELD A ONE, TOO BAD. CHANGE PLAYERS</h1>
+      <h1 id="turnOverOne">YOU ROLLED A ONE, TOO BAD. CHANGE PLAYERS</h1>
+      <h1><span id="winScreen"></span></h1>
     </div>
   </div>
 </body>
