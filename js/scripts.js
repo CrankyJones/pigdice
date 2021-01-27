@@ -20,33 +20,34 @@
 // turnCount = 0
 // update scoreboard
 
-// function Game() {    // New Game Button
-//   this.round = 0;
-//   this.playerOne = 0;
-//   this.playerTwo = 0;
-// }
-
-function Player(name, score)  {
-  this.playerName = playerName;
-  this.score = score;
+function Game() {    // New Game Button
+  this.round = 1;
+  this.playerOne = 0;
+  this.playerTwo = 0;
 }
 
+// On Start New Game
+let newGame = new Game();
 let turnCount = 0;
+
 Game.prototype.dieRoll = function () { // Roll Button
   let rolled = Math.floor(Math.random() * 6) + 1;
+  console.log(rolled);
   //document.getElementById("demo").innerHTML = "rolled"; 
   if (rolled >= 2) {
     turnCount += rolled;
+  console.log(turnCount)
   } else {
     turnCount = 0;
-    endTurn();
+    newGame.round ++;
+    //document.getElementById("demo").innerHTML = "Turn Over";
   }
 }
 
 Game.prototype.endTurn = function () { // Hold Button
-  if (parseInt(this.round) % 2 = 0) {
-    this.score += turnCount;
-    if (this.score >= 100) {
+  if (this.round % 2 === 1) {
+    this.playerOne += turnCount;
+    if (this.playerOne >= 100) {
       // some win game screen
       // end game
     }
@@ -61,5 +62,6 @@ Game.prototype.endTurn = function () { // Hold Button
     turnCount = 0;
     //update scoreboard with Game.player scores
   }
-  this.round++;
+  newGame.round ++;
+  //document.getElementById("demo").innerHTML = "Turn Over";
 }
