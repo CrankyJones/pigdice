@@ -24,8 +24,8 @@ function Game() {    // New Game Button
   this.round = 1;
   this.playerOne = 0;
   this.playerTwo = 0;
-  this.nameOne = ""
-  this.nameTwo = ""
+  this.nameOne = "";
+  this.nameTwo = "";
 }
 
 // On Start New Game
@@ -35,7 +35,7 @@ let turnCount = 0;
 Game.prototype.dieRoll = function () { // Roll Button
   $("#turnOver").hide();
   $("#turnOverOne").hide();  
-  document.getElementById("roundCount").innerHTML = newGame.round;
+  document.getElementById("roundCount").innerHTML = this.round;
   let rolled = Math.floor(Math.random() * 6) + 1;
   document.getElementById("currentRoll").innerHTML = rolled; 
   if (rolled >= 2) {
@@ -43,7 +43,7 @@ Game.prototype.dieRoll = function () { // Roll Button
     document.getElementById("turnTotal").innerHTML = turnCount;
   } else {
     turnCount = 0;
-    newGame.round++;
+    this.round++;
     $("#turnOverOne").show();
   }
 }
@@ -52,26 +52,26 @@ Game.prototype.endTurn = function () { // Hold Button
   if (this.round % 2 === 1) {
     this.playerOne += turnCount;
     if (this.playerOne >= 100) {
-      document.getElementById("winScreen").innerHTML = newGame.nameOne + " wins the game!";
+      document.getElementById("winScreen").innerHTML = this.nameOne + " wins the game!";
       $("#winScreen").show();
       $("#playAgain").show();
       return;
     }
     turnCount = 0;
-    document.getElementById("nameOneScore").innerHTML = newGame.playerOne; 
+    document.getElementById("nameOneScore").innerHTML = this.playerOne; 
   } else {
     this.playerTwo += turnCount;
     if (this.playerTwo >= 100) {
-      document.getElementById("winScreen").innerHTML = newGame.nameTwo + " wins the game!";
+      document.getElementById("winScreen").innerHTML = this.nameTwo + " wins the game!";
       $("#winScreen").show();
       $("#playAgain").show();
       return;
     }
     turnCount = 0;
-    document.getElementById("nameTwoScore").innerHTML = newGame.playerTwo; 
+    document.getElementById("nameTwoScore").innerHTML = this.playerTwo; 
   }
-  newGame.round++;
-
+  this.round++;
+  $("#turnOverOne").hide();
   $("#turnOver").show();
 }
 
