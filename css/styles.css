@@ -1,3 +1,20 @@
+head, body  {
+  background-image: url("https://cdn.hipwallpaper.com/i/82/81/jDNnzB.jpg");
+  background-position: center;
+  background-size: cover;
+  color: rgb(208, 205, 205);
+  background-repeat: no-repeat;
+  background-color: black;
+}
+
+.headings{
+  margin-top: 25px;
+}
+
+button {
+  margin-top: 25px;
+  margin-right: 25px;
+}
 #nameForm{
   width: 30%;
   margin-top: 5%;
@@ -6,11 +23,31 @@
 #turnOver {
   float: right;
   display: none;
+  border: 3px solid black;
+  margin-top: 40%;
+  padding: 15px;
+  background-color: orange;
+  color: black;
 }
 
 #turnOverOne  {
   float: right;
   display: none;
+  border: 3px solid black;
+  margin-top: 40%;
+  padding: 15px;
+  background-color: orange;
+  color: black;
+}
+
+#winScreen{
+  float: right;
+  border: 3px solid black;
+  margin-top: 40%;
+  padding: 15px;
+  display: none;
+  background-color: yellowgreen;
+  color: black;
 }
 
 #playAgain  {
