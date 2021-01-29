@@ -20,57 +20,92 @@
 // turnCount = 0
 // update scoreboard
 
-function Game() {    // New Game Button
+function Game() {   // New Game Button
   this.round = 1;
-  this.playerOne = 0;
-  this.playerTwo = 0;
-  this.nameOne = "";
-  this.nameTwo = "";
-  this.turnCount = 0;
+  this.players = {};
+  this.currentId = -1;
 }
 
+function Player(nameName) {
+  this.name = nameName;
+  this.score = 0;
+  this.turnCount = 0;
+}
 // On Start New Game
+//  let playerOne = new Player();
+//  let playerTwo = new Player();
 let newGame = new Game();
 
-Game.prototype.dieRoll = function () { // Roll Button
+Game.prototype.addPlayer = function (player) {
+  player.id = this.assignId();
+  this.players[player.id] = player;
+}
+
+Game.prototype.assignId = function (id) {
+  this.currentId += 1;
+  return this.currentId;
+}
+let XX = 0;
+Player.prototype.dieRoll = function () { // Roll Button
+  XX = newGame.round % 2;
+
   $("#turnOver").hide();
   $("#turnOverOne").hide();
-  document.getElementById("roundCount").innerHTML = this.round;
+  document.getElementById("roundCount").innerHTML = newGame.round;
   let rolled = Math.floor(Math.random() * 6) + 1;
   document.getElementById("currentRoll").innerHTML = rolled;
   if (rolled >= 2) {
-    this.turnCount += rolled;
-    document.getElementById("turnTotal").innerHTML = this.turnCount;
+    newGame.players[XX].turnCount += rolled;
+    document.getElementById("turnTotal").innerHTML = newGame.players[XX].turnCount;
+    if (newGame.players[XX].turnCount + newGame.players[XX].score >= 100) {
+      document.getElementById("winScreen").innerHTML = newGame.players[XX].name + " wins the game!";
+      $("#winScreen").show();
+      $(".rollbuttons").hide();
+      $("#playAgain").show();
+      return;
+    }
+    // if (this.turnCount + this.playerTwo >= 100) {
+    //   document.getElementById("winScreen").innerHTML = this.name + " wins the game!";
+    //   $("#winScreen").show();
+    //   $(".rollbuttons").hide();
+    //   $("#playAgain").show();
+    //   return;
+    // }
   } else {
     this.turnCount = 0;
-    this.round++;
+    newGame.round++;
     $("#turnOverOne").show();
+    $(".rollbuttons").hide();
   }
 }
 
-Game.prototype.endTurn = function () { // Hold Button
-  if (this.round % 2 === 1) {
-    this.playerOne += this.turnCount;
-    if (this.playerOne >= 100) {
-      document.getElementById("winScreen").innerHTML = this.nameOne + " wins the game!";
-      $("#winScreen").show();
-      $("#playAgain").show();
-      return;
-    }
-    this.turnCount = 0;
-    document.getElementById("nameOneScore").innerHTML = this.playerOne;
-  } else {
-    this.playerTwo += this.turnCount;
-    if (this.playerTwo >= 100) {
-      document.getElementById("winScreen").innerHTML = this.nameTwo + " wins the game!";
-      $("#winScreen").show();
-      $("#playAgain").show();
-      return;
-    }
-    this.turnCount = 0;
-    document.getElementById("nameTwoScore").innerHTML = this.playerTwo;
-  }
-  this.round++;
+Player.prototype.endTurn = function () { // Hold Button
+  XX = newGame.round % 2;
+  //if (newGame.round % 2 === ) {
+  // if (newGame.player[] % 2 === 1)
+  // if (XX = 0) {
+  newGame.players[XX].score += this.turnCount;
+  $(".rollbuttons").hide();
+  this.turnCount = 0;
+  document.getElementById("name" + XX + "Score").innerHTML = newGame.players[XX].score;
+  // } else if (XX = 1) {
+  // this.score += this.turnCount;
+  //  $(".rollbuttons").hide();
+  //  this.turnCount = 0;
+  //  document.getElementById("nameTwoScore").innerHTML = this.score;
+  // }
+  // }else {
+  //   newGame.players[2];
+  // }
+
+
+  // } else {
+  //   this.playerTwo += this.turnCount;
+  //   $(".rollbuttons").hide();
+  //   this.turnCount = 0;
+  //   document.getElementById("nameTwoScore").innerHTML = this.playerTwo;
+  // }
+  newGame.round++;
   $("#turnOverOne").hide();
   $("#turnOver").show();
 }
@@ -78,19 +113,33 @@ Game.prototype.endTurn = function () { // Hold Button
 Game.prototype.playAgain = function () {
   location.reload();                  //.reload();
 }
-
+function closeWindows() {
+  $("#turnOverOne").hide();
+  $("#turnOver").hide();
+  $(".rollbuttons").show();
+}
 // UI logic
 $(document).ready(function () {
   $("#nameForm").submit(function (event) {
     event.preventDefault();
-    newGame.nameOne = $("#playerOneName").val();
-    newGame.nameTwo = $("#playerTwoName").val();
-    $("#nameOne").text(newGame.nameOne + ": ");
-    $("#nameTwo").text(newGame.nameTwo + ": ");
+    playerOneName = $("#playerOneName").val();
+    playerTwoName = $("#playerTwoName").val();
+
+    let playerOne = new Player(playerOneName);
+    let playerTwo = new Player(playerTwoName);
+    newGame.addPlayer(playerOne);
+    newGame.addPlayer(playerTwo);
+
+    $("#nameOne").text(playerOne.name + ": ");
+    $("#nameTwo").text(playerTwo.name + ": ");
     $("#start").hide();
     $("#winScreen").hide();
     $("#playAgain").hide();
-  })
-})
+    $(".rollbuttons").show();
+    $("#nameForm").hide();
+
+
+  });
+});
 
 
