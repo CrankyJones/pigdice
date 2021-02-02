@@ -1,6 +1,14 @@
+.close {
+  cursor: pointer;
+}
+
+.rollbuttons  {
+  display: none;
+}
+
 head, body  {
   background-image: url("https://cdn.hipwallpaper.com/i/82/81/jDNnzB.jpg");
-  background-position: center;
+  background-position: fixed;
   background-size: cover;
   color: rgb(208, 205, 205);
   background-repeat: no-repeat;
